@@ -3,7 +3,7 @@ The Arduino Uno R3 is a microcontroller development board designed by Arduino wi
 
 # 2 Technical Specifications
 The Arduino Uno has the **ATMega328P** and the **ATMega16U2** microcontrollers which have a multitude of features that will be discussed further in this section. Both microcontrollers run on a 5V AVR 8-bit architecture. The **ATMega328P** clocks at up to 16 MHz.
-<img width="961" height="584" alt="image" src="https://github.com/user-attachments/assets/16d5ae50-e7b2-42b7-ae0a-cf3a8efc6f51" />
+<img width="900" height="550" alt="image" src="https://github.com/user-attachments/assets/16d5ae50-e7b2-42b7-ae0a-cf3a8efc6f51" />
 ## 2.1 Memory
 The Arduino Uno R3 has **2** microcontrollers, namely:
   - The **ATMega328P** (main microcontroller, this is where you upload your code to) which has 32 kB of Flash, 2 kB SRAM and 1 kB EEPROM memory and is easily accessible.
@@ -49,7 +49,7 @@ The Arduino has a plenty of peripherals, but we will focus on the most important
 
 # 3. The pinouts 
 The arduino Uno R3 has a multidude of pins each with its own characteristics and use cases. In the image below we can see the pinouts.
-<img width="1038" height="811" alt="image" src="https://github.com/user-attachments/assets/9beb0756-e2ce-4b1d-b68e-8f9193820f2b" />
+<img width="900" height="550" alt="image" src="https://github.com/user-attachments/assets/9beb0756-e2ce-4b1d-b68e-8f9193820f2b" />
 
 >The Arduino Uno R3 is rated to work at a minimum temperature of -40 C and at a maximum temperature fo 85 C (it is mentioned that at these extreme temperatures some components might not work).
 
