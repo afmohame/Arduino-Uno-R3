@@ -29,7 +29,7 @@ The Arduino has a plenty of peripherals, but we will focus on the most important
   - 1 SPI
   - 1 I2C
   - 1 Analog Comparator
-  - 6 PWM pins
+  - 6 PWM channels
 ### 2.2.1 8 and 16-bit timer/counter
 #### 8-bit timer/counter
 
@@ -41,6 +41,11 @@ The Arduino has a plenty of peripherals, but we will focus on the most important
 #### I2C protocol
 
 #### SPI protocol
+
+### 2.2.3 Analog Comparator
+
+### 2.2.4 PWM channels
+
 
 # 3. The pinouts 
 The arduino Uno R3 has a multidude of pins each with its own characteristics and use cases. In the image below we can see the pinouts.
