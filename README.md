@@ -27,7 +27,7 @@ Electrically Erasable Programmable Read-Only Memory is a non-volatile storage me
 The Arduino has a plenty of peripherals, but we will focus on the most important ones.
 
 ### 2.2.1 Digital I/O pins
-I/O is short for Input/Output. The Arduino Uno has 14 (or 20 if you count the analog pins with) digital I/O pins, each has its own quirks. Of the 14 digital pins, only 12 (or 18 with analog pins) are recommended to use as digital pins, because some have other functions like the tx and rx pins that can interfere with serial communication. Digital pins output 0V (logic low) or 5V (logic high) or if they are PWM (Pulse Width Modulation) pins a range between 0 and 5V. These digital pins can be used to power a LED, 7 segment displays, servo motors and much more, which shows the versatility that these pins. Coupled with the analog pins, which can be used to read from sensors or precisely output certain voltages, the Arduino Uno R3 is a capable and affordable microcontroller development board.
+I/O is short for Input/Output. The Arduino Uno has 14 (or 20 if you count the analog pins with) digital I/O pins, each has its own quirks. Of the 14 digital pins, only 12 (or 18 with analog pins) are recommended to use as digital pins, because some have other functions like the tx and rx pins that can interfere with serial communication. Digital pins output 0V (logic low) or 5V (logic high) or if they are PWM (Pulse Width Modulation) pins a range between 0 and 5V. These digital pins can be used to power a LED, 7 segment displays, servo motors and much more, which shows the versatility of these pins. Coupled with the analog pins, which can be used to read from sensors or precisely output certain voltages.
 
 <img width="900" height="550" alt="image" src="https://github.com/user-attachments/assets/9beb0756-e2ce-4b1d-b68e-8f9193820f2b" />
 
@@ -35,8 +35,8 @@ I/O is short for Input/Output. The Arduino Uno has 14 (or 20 if you count the an
 <img width="900" height="550" alt="image" src="https://github.com/user-attachments/assets/aa9a2bd0-471c-40e3-baea-f4040fa9976f" />
 
 PWM pins are denoted with the ```~``` symbol and are able to output a range between 0 and 5V by changing their duty cycle. The duty cycle is a term that refers to the time that a system/signal is active, or on, and expressed as a percentage. The PWM pins are pin 3, 5, 6, 9, 10 and 11. These pins can be used with ```analogWrite(pin, x)``` to output a certain voltage. 
-The Arduino uno R3 has a 10-bit Analog to digital converter (ADC), but  This means that the ```x``` value lies between 0 and 2^(8)-1, or 0 to 255. As shown in the image above ```analogWrite(pin, x)``` will change the on/off state time. 50% duty cycle can be achieved by setting x equal to 127. The formula to calculate ```x``` is shown below.
-```x = duty cycle * 2^(n)-1``` with n the number of bits and duty cycle in percent.
+The Arduino uno R3 has a 10-bit Analog to digital converter (ADC). This means that the ```x``` value lies between 0 and $`2^8 - 1`$, or 0 to 255. As shown in the image above ```analogWrite(pin, x)``` will change the on/off state time. 50% duty cycle can be achieved by setting x equal to 127. The formula to calculate ```x``` is shown below.
+```x = duty cycle * 2^n - 1``` with n the number of bits and the duty cycle in percent.
 
 ### 2.2.2 Communication protocols
 #### USART protocol
