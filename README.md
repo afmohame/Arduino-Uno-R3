@@ -1,5 +1,5 @@
 # 1. Introduction to the Arduino Uno R3
-The Arduino Uno R3 is a microcontroller development board designed by Arduino with which we can control various components. It is a small and compact microcontroller board that has 6 analog **input** pins, 14 digital **I/O** pins, 5V and 3.3V output pins, reset button and reset pin and more. In this article I will be discussing the ins and outs of the Arduino Uno R3 and its capabilities to document the features and serve as a reference for future projects. It is one of the most popular and widely used microcontroller boards for various reasons. It is beginner friendly, easy to use, has a big following and community support and lots of libraries. For these reasons, the Arduino Uno R3 is a must have for beginners.
+The Arduino Uno R3 is a microcontroller development board designed by Arduino with which we can control various components. It is a small and compact microcontroller board that has 6 analog **input** pins, 14 digital **I/O** pins, 5V and 3.3V output pins, reset button and reset pin and more. In this article I will be discussing the ins and outs of the Arduino Uno R3 and its capabilities to document the features and serve as a reference for future projects. It is one of the most popular and widely used microcontroller boards for various reasons. It is beginner friendly, easy to use, has a big following and community support and lots of libraries. For these reasons, the Arduino Uno R3 is a must-have for beginners.
 
 # 2. Technical Specifications
 The Arduino Uno has the **ATMega328P** and the **ATMega16U2** microcontrollers which have a multitude of features that will be discussed further in this section. Both microcontrollers run on a 5V AVR 8-bit architecture. The **ATMega328P** clocks at up to 16 MHz.
@@ -24,7 +24,7 @@ Electrically Erasable Programmable Read-Only Memory is a non-volatile storage me
 ## 2.2. Peripherals
 >A peripheral device, or simply peripheral, is an auxiliary hardware device that a computer uses to transfer information externally.^5
 
-The Arduino has a plenty of peripherals, but we will focus on the most important ones.
+The Arduino has plenty of peripherals, but we will focus on the most important ones.
 
 ### 2.2.1. Digital I/O pins
 I/O is short for Input/Output. The Arduino Uno has 14 (or 20 if you count the analog pins with) digital I/O pins, each has its own quirks. Of the 14 digital pins, only 12 (or 18 with analog pins) are recommended to use as digital pins, because some have other functions like the tx and rx pins that can interfere with serial communication. Digital pins output 0V (logic low) or 5V (logic high) or if they are PWM (Pulse Width Modulation) pins a range between 0 and 5V. These digital pins can be used to power a LED, 7 segment displays, servo motors and much more, which shows the versatility of these pins. Coupled with the analog pins, which can be used to read from sensors or precisely output certain voltages.
@@ -35,14 +35,21 @@ I/O is short for Input/Output. The Arduino Uno has 14 (or 20 if you count the an
 <img width="900" height="550" alt="image" src="https://github.com/user-attachments/assets/aa9a2bd0-471c-40e3-baea-f4040fa9976f" />
 
 PWM pins are denoted with the ```~``` symbol and are able to output a range between 0 and 5V by changing their duty cycle. The duty cycle is a term that refers to the time that a system/signal is active, or on, and expressed as a percentage. The PWM pins are pin 3, 5, 6, 9, 10 and 11. These pins can be used with ```analogWrite(pin, x)``` to output a certain voltage. 
-The Arduino uno R3 has a 10-bit Analog to digital converter (ADC). This means that the ```x``` value lies between 0 and $`2^8 - 1`$, or 0 to 255. As shown in the image above ```analogWrite(pin, x)``` will change the on/off state time. 50% duty cycle can be achieved by setting x equal to 127. The formula to calculate ```x``` is shown below.
+The Arduino Uno R3 has a 10-bit Analog to digital converter (ADC), but the Arduino uses a 8-bit converter for the PWM pins. They use different timers to output a certain voltage[^3]. This means that the ```x``` value lies between 0 and $`2^8 - 1`$, or 0 to 255. As shown in the image above ```analogWrite(pin, x)``` will change the on/off state time. 50% duty cycle can be achieved by setting x equal to 127. The formula to calculate ```x``` is shown below.
 ```x = duty cycle * 2^n - 1``` with n the number of bits and the duty cycle in percent.
 
 ### 2.2.2. Communication protocols
 #### USART protocol
 
 #### I2C protocol
-I2C, or inter-Integrated circuit, is one of the most used communication protocol. 
+I2C, or inter-Integrated circuit, is one of the most used communication protocols. It works by connecting the SDA and SCL from the master (ex: Arduino Uno R3) to one or multiple slaves (ex: MCP6050). The real benefits of I2C are that you can have multiple slaves and masters and you will only need 2 wires to exchange data, Serial DAta (SDA) and Serial CLock (SCL), and you can attach a maximum of 1008 devices [^4]. 
+<img width="1417" height="725" alt="image" src="https://github.com/user-attachments/assets/0e0994f5-1789-41e2-aaec-d76b53b8bbec" />
+
+
+
+
+
+I2C compared to SPI and UART is quite more difficult 
 
 #### SPI protocol
 
@@ -51,7 +58,7 @@ I2C, or inter-Integrated circuit, is one of the most used communication protocol
 ### 2.2.4. Analog to Digital Converter (ADC)
 
 
->The Arduino Uno R3 is rated to work at a minimum temperature of -40 C and at a maximum temperature fo 85 C (it is mentioned that at these extreme temperatures some components might not work).
+>The Arduino Uno R3 is rated to work at a minimum temperature of -40 °C and at a maximum temperature fo 85 °C (it is mentioned that at these extreme temperatures some components might not work).
 
 
 
@@ -64,6 +71,9 @@ I2C, or inter-Integrated circuit, is one of the most used communication protocol
 4. https://docs.arduino.cc/learn/built-in-libraries/eeprom/
 5. https://en.wikipedia.org/wiki/Peripheral
 6. https://docs.arduino.cc/learn/microcontrollers/analog-output/
+7. https://learn.sparkfun.com/tutorials/i2c/all
 
 [^1]: 0.5 kB is not accessible and reserved for the bootloader
 [^2]: ```#define``` is a preprocessing macro (3)
+[^3]: The timers used are: timer0 (8 bit) pin 5 and 6, timer1 (16 bit) pin 9 and 10, timer2 (8 bit) pin 3 and 11. *Note: You could use the 16-bit timer to have a more steps, but arduino standardised it to 8-bit
+[^4]: If multiple masters they cannot exchange data to each other through SDA and SCL bus and they need to take turns to use the SDA and SCL bus.
