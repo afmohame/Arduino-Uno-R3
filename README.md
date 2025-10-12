@@ -35,11 +35,10 @@ I/O is short for Input/Output. The Arduino Uno has 20 digital pins with and 14 w
 ![PWM Signal](images/PWM.png)
 
 PWM pins are denoted with the ```~``` symbol and are able to output a range between 0 and 5V by changing their duty cycle. The duty cycle is a term that refers to the time that a system/signal is active, or on, and expressed as a percentage. The PWM pins are pin D3, D5, D6, D9, D10 and D11. These pins can be used with ```analogWrite(pin, x)``` to output a certain voltage. 
-The Arduino Uno R3 has a 10-bit Analog to digital converter (ADC), but the Arduino uses a 8-bit converter for the PWM pins. They use different timers to output a certain voltage[^3]. This means that the ```x``` value lies between 0 and $`2^8 - 1`$, or 0 to 255. As shown in the image above ```analogWrite(pin, x)``` will change the on/off state time. 50% duty cycle can be achieved by setting x equal to 127. The formula to calculate ```x``` is shown below.
+The Arduino Uno R3 has a 10-bit Analog to digital converter (ADC), but the Arduino uses a 8-bit converter for the PWM pins. They use different timers to output a certain voltage ([Furthur explained in section 2.2.4 ADC](#224-analog-to-digital-converter-adc)) [^3]. This means that the ```x``` value lies between 0 and $`2^8 - 1`$, or 0 to 255. As shown in the image above ```analogWrite(pin, x)``` will change the on/off state time. 50% duty cycle can be achieved by setting x equal to 127. The formula to calculate ```x``` is shown below.
 ```x = duty cycle * 2^n - 1``` with n the number of bits and the duty cycle in percent.
 
 ### 2.2.2. Communication protocols
-#### USART protocol
 
 #### I2C protocol
 I2C, or inter-Integrated circuit, is one of the most used communication protocols. It works by connecting the SDA and SCL from the master/controller (ex: Arduino Uno R3) to one or multiple slaves/peripherals (ex: MCP6050). The benefits of I2C are that you can connect multiple slaves and masters, you only need 2 wires to exchange data, **Serial DAta** (SDA) and **Serial CLock** (SCL), and you can attach a maximum of 1008 devices[^4]. 
@@ -53,19 +52,24 @@ Serial Clock is clock signal while Serial Data is the data signal. The clock sig
 Serial Data is used to send or receive data bits.
 ![I2C Timeline](images/i2c_v4.png)
 Before the clock begins to oscillate, there needs to be a start condition. This condition happens when the SDA line goes low **while** the SCL line is high. Then, it send a total of 8 bits, 1 byte, which 7 contains the slave addresses. Even if you connect only one slave it will always send 7 bits for the slave address. and every bit is a **0** or **1**. This means that you can have a maximum of $`2^7 - 1`$ or 127 unique slave addresses[^7]. Then the last bit will indicate if the master wants to write or read to the slave. A **1** means that it will request data (read), and a **0** means that it will send data (write). After the byte is sent, the **receiver** of the address byte will receive one more bit, the ACK/NACK bit. ACK means that everything went well and is denoted with a **0**. NACK mean that something went wrong and no data could be exchanged and is denoted with a **1**.
-The second part is where the master receives or writes 1 byte of data with once again a ACK or NACK bit after the byte. At the end there is a stop condition, and this condition occurs when SDA line goes high **while** SCL line is high. So the SDA line **only** changes when the SCL line is also high
-
+The second part is where the master receives or writes 1 byte of data with once again a ACK or NACK bit after the byte. At the end there is a stop condition, and this condition occurs when SDA line goes high **while** SCL line is high. So the SDA line **only** changes when the SCL line is also high.
 
 #### SPI protocol
-
+Serial Peripheral Interface, or SPI, is another widely used communication protocol.
+#### USART protocol
+Universal Synchronous/Asynchronous Receiver Transmitter[^].
 ### 2.2.3. Analog Comparator
 
 ### 2.2.4. Analog to Digital Converter (ADC)
+Like mentioned earlier the Arduino Uno R3 has a 10 bit ADC, but isn't used for the PWM pins. The analog pins can be used as [digital pins](#221-digital-io-pins), but they can also **read** voltages between 0 and 5V. The 10 bit ADC lets you **read** voltages, they cannot output a specific voltage (except 0V or 5V). To output a voltage you need to use [the PWM pins](#pwm-pins). 
 
+![ADC steps](images/ADC_image.jpg)
+
+A 10 bit ADC means that the lowest potential it can read is ~5mV. On the graph, a sinusoid function and *steps* are shown. The steps are what the Arduino outputs with the PWM pins or reads with the analog pins. As mentioned earlier the PWM pins do not share the 10 bit ADC, instead they use timer0, timer1 and timer2[^3]. These timers are capped at a 8 bit range.
 
 >The Arduino Uno R3 is rated to work at a minimum temperature of -40 °C and at a maximum temperature fo 85 °C (it is mentioned that at these extreme temperatures some components might not work).
 
-
+## 3 Arduino IDE
 
 
 
@@ -86,7 +90,7 @@ The second part is where the master receives or writes 1 byte of data with once 
 
 [^4]: If multiple masters, they cannot exchange data to each other through SDA and SCL bus and they need to take turns to use the SDA and SCL bus. Also in reality you would only use 127 devices (see I2C the workings).
 
-[^5]: A pull_up resistor is a resistor that is directly connected VCC.
+[^5]: A pull-up resistor is a resistor that is directly connected VCC.
 
 [^6]: Even though the clock signal is generated by the master/controller some slaves/peripherals may keep the signal low to delay the data transfer.
  
