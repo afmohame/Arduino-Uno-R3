@@ -35,7 +35,7 @@ I/O is short for Input/Output. The Arduino Uno has 20 digital pins with and 14 w
 ![PWM Signal](images/PWM.png)
 
 PWM pins are denoted with the ```~``` symbol and are able to output a range between 0 and 5V by changing their duty cycle. The duty cycle is a term that refers to the time that a system/signal is active, or on, and expressed as a percentage. The PWM pins are pin D3, D5, D6, D9, D10 and D11. These pins can be used with ```analogWrite(pin, x)``` to output a certain voltage. 
-The Arduino Uno R3 has a 10-bit Analog to digital converter (ADC), but the Arduino uses a 8-bit converter for the PWM pins. They use different timers to output a certain voltage ([Furthur explained in section 2.2.4 ADC](#224-analog-to-digital-converter-adc)) [^3]. This means that the ```x``` value lies between 0 and $`2^8 - 1`$, or 0 to 255. As shown in the image above ```analogWrite(pin, x)``` will change the on/off state time. 50% duty cycle can be achieved by setting x equal to 127. The formula to calculate ```x``` is shown below.
+The Arduino Uno R3 has a 10-bit Analog to digital converter (ADC), but the Arduino uses a 8-bit converter for the PWM pins. They use different timers to output a certain voltage ([Further explained in section 2.2.4 ADC](#224-analog-to-digital-converter-adc)) [^3]. This means that the ```x``` value lies between 0 and $`2^8 - 1`$, or 0 to 255. As shown in the image above ```analogWrite(pin, x)``` will change the on/off state time. 50% duty cycle can be achieved by setting x equal to 127. The formula to calculate ```x``` is shown below.
 ```x = duty cycle * 2^n - 1``` with n the number of bits and the duty cycle in percent.
 
 ### 2.2.2. Communication protocols
@@ -61,11 +61,11 @@ Universal Synchronous/Asynchronous Receiver Transmitter[^].
 ### 2.2.3. Analog Comparator
 
 ### 2.2.4. Analog to Digital Converter (ADC)
-Like mentioned earlier the Arduino Uno R3 has a 10 bit ADC, but isn't used for the PWM pins. The analog pins can be used as [digital pins](#221-digital-io-pins), but they can also **read** voltages between 0 and 5V. The 10 bit ADC lets you **read** voltages, they cannot output a specific voltage (except 0V or 5V). To output a voltage you need to use [the PWM pins](#pwm-pins). 
+Like mentioned earlier the Arduino Uno R3 has a 10 bit ADC, but isn't used for the PWM pins. The analog pins can be used as [digital pins](#221-digital-io-pins), but they can also **read** voltages between 0 and 5V. The 10 bit ADC lets you **read** voltages, it cannot output a specific voltage (except 0V or 5V). To output a voltage you need to use [the PWM pins](#pwm-pins). 
 
 ![ADC steps](images/ADC_image.jpg)
 
-A 10 bit ADC means that the lowest potential it can read is ~5mV. On the graph, a sinusoid function and *steps* are shown. The steps are what the Arduino outputs with the PWM pins or reads with the analog pins. As mentioned earlier the PWM pins do not share the 10 bit ADC, instead they use timer0, timer1 and timer2[^3]. These timers are capped at a 8 bit range.
+A 10 bit ADC means that the lowest potential it can read is ~5mV. On the graph, a sinusoid function and *steps* are shown. The steps are what the Arduino outputs with the PWM pins or reads with the analog pins. As mentioned earlier the PWM pins do not share the 10 bit ADC, instead they use timer0, timer1 and timer2[^3]. These timers are capped at a 8 bit range. 
 
 >The Arduino Uno R3 is rated to work at a minimum temperature of -40 °C and at a maximum temperature fo 85 °C (it is mentioned that at these extreme temperatures some components might not work).
 
