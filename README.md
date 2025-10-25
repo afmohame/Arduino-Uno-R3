@@ -1,3 +1,23 @@
+# **Table of contents**
+1. [Introduction to the Arduino Uno R3](#1-introduction-to-the-arduino-uno-r3)
+2. [Technical Specifications](#2-technical-specifications)
+  - [Memory](#21-memory)
+    - [Flash memory](#211-flash-memory)
+    -[SRAM](#212-sram)
+    -[EEPROM](#213-eeprom)
+  - [Peripherals](#22-peripherals)
+    - [Digital IO pins](#221-digital-io-pins)
+      - [PWM pins](#pwm-pins)
+    - [Communication protocols](#222-communication-protocols)
+      - [I2C](#i2c-protocol)
+        - [I2C the workings](#i2c-the-workings)
+      - [SPI](#spi-protocol)
+      - [UART/USART protocol](#uartusart-protocol)
+    - [Analog comparator](#223-analog-comparator)
+    - [Analog to digital converter (ADC)](#224-analog-to-digital-converter-adc)
+3. [Arduino IDE](#3-arduino-ide)
+
+
 # 1. Introduction to the Arduino Uno R3
 The Arduino Uno R3 is a microcontroller development board designed by Arduino with which we can control various components. It is a small and compact microcontroller board that has 6 analog **input** pins, 14 digital **I/O** pins, 5V and 3.3V output pins, reset button and reset pin and more. In this article I will be discussing the ins and outs of the Arduino Uno R3 and its capabilities to document the features and serve as a reference for future projects. It is one of the most popular and widely used microcontroller boards for various reasons. It is beginner friendly, easy to use, has a big following and community support and lots of libraries. For these reasons, the Arduino Uno R3 is a must-have for beginners.
 
@@ -20,6 +40,13 @@ int counter = 0;
 Here ```#define LED_D2 2``` will not be stored in the SRAM because it **is not** a variable[^2] while ```int counter = 0``` is a **variable** and will be stored in the SRAM. All variables are stored in the SRAM by default unless specified otherwise.
 ### 2.1.3. EEPROM
 Electrically Erasable Programmable Read-Only Memory is a non-volatile storage medium. It stores data byte by byte and is easily accessible on the Arduino IDE with the EEPROM library ```#include <EEPROM.h>```. This is very useful when you need some specific data to be stored even if the Arduino is powered off. 
+### 2.1.4. Difference between EEPROM and Flash memory
+EEPROM and flash memory seem similar but in reality are not. They key differences are:
+| | EEPROM | Flash memory |
+|-|--------|---------|
+| Purpose| Stores run time data you want to conserve| Stores, mainly, the  compiled sketch 
+| R/W | Yes, but you need a library | Yes, via IDE|
+| Granularity & erase | can change individual bytes| Cannot change individual bytes|
 
 ## 2.2. Peripherals
 >A peripheral device, or simply peripheral, is an auxiliary hardware device that a computer uses to transfer information externally.^5
@@ -35,8 +62,9 @@ I/O is short for Input/Output. The Arduino Uno has 20 digital pins with and 14 w
 ![PWM Signal](images/PWM.png)
 
 PWM pins are denoted with the ```~``` symbol and are able to output a range between 0 and 5V by changing their duty cycle. The duty cycle is a term that refers to the time that a system/signal is active, or on, and expressed as a percentage. The PWM pins are pin D3, D5, D6, D9, D10 and D11. These pins can be used with ```analogWrite(pin, x)``` to output a certain voltage. 
-The Arduino Uno R3 has a 10-bit Analog to digital converter (ADC), but the Arduino uses a 8-bit converter for the PWM pins. They use different timers to output a certain voltage ([Further explained in section 2.2.4 ADC](#224-analog-to-digital-converter-adc)) [^3]. This means that the ```x``` value lies between 0 and $`2^8 - 1`$, or 0 to 255. As shown in the image above ```analogWrite(pin, x)``` will change the on/off state time. 50% duty cycle can be achieved by setting x equal to 127. The formula to calculate ```x``` is shown below.
-```x = duty cycle * 2^n - 1``` with n the number of bits and the duty cycle in percent.
+
+The Arduino Uno R3 has a 10-bit Analog to digital converter (ADC), but the Arduino uses a 8-bit converter for the PWM pins. They use different timers to output a certain voltage ([Further explained in section 2.2.4 ADC](#224-analog-to-digital-converter-adc)) [^3]. This means that the ```x``` value lies between 0 and 2<sup>8</sup> - 1, or 0 to 255. As shown in the image above ```analogWrite(pin, x)``` will change the on/off state time. 50% duty cycle can be achieved by setting x equal to 127. The formula to calculate ```x``` is shown below.
+```x = duty cycle * 2^n - 1``` with n the number of bits and the duty cycle in percent. The voltage increase is a minimum ~20 mV or 5V*1/(2<sup>8</sup>-1).
 
 ### 2.2.2. Communication protocols
 
@@ -56,7 +84,7 @@ The second part is where the master receives or writes 1 byte of data with once 
 
 #### SPI protocol
 Serial Peripheral Interface, or SPI, is another widely used communication protocol.
-#### USART protocol
+#### UART/USART protocol
 Universal Synchronous/Asynchronous Receiver Transmitter[^].
 ### 2.2.3. Analog Comparator
 
